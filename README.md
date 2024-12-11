@@ -10,11 +10,11 @@ To run the Password Manager you will need to have Python installed on your syste
    ```bash
    git clone https://github.com/DanEm95/passwordManager.git
 2. Navigate to the project directory:
-``` bash
-cd password-manager
+   ``` bash
+   cd password-manager
 3. Install the required packages:
-```bash
-pip install pyperclip
+   ```bash
+   pip install pyperclip
 
 # Usage
 1. Open the password_manager.pyw file to launch the application.
