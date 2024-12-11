@@ -13,7 +13,7 @@ To run the Password Manager you will need to have Python installed on your syste
    ```bash
    pip install pyperclip
 
-# Usage
+## Usage
 ```python
 1. Open the password_manager.pyw file to launch the application.
 2. Fill in the fields:
@@ -23,11 +23,12 @@ To run the Password Manager you will need to have Python installed on your syste
 4. You can now paste the password directly where you need it by pressing Ctrl + V.
 5. Click Add to securely store your details in the JSON.
 6. To retrieve a saved password, enter the website name and click on Search.
+```
 
-# Features
+## Features
  - Generate strong, random passwords.
  - Securely store and retrieve passwords.
  - Automatically copy generated passwords to clipboard for easy access.
 
-# Contribute
+## Contribute
 Pull requests are welcome! If you have suggestions for improvements or new features, please open a new issue to discuss what you would like to see changed.
