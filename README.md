@@ -1,6 +1,20 @@
-# Password Manager
+<h1 align="center">
+	Password Manager
+<p align=center>
+<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+<a href="https://github.com/DanEm95"><img src="https://img.shields.io/badge/lead-DanEm95-lightblue"></a>
 
+</p>
+</h1>
+
+<h3 align="center">
 Password Manager is a simple Python application that helps you securely store and manage your passwords. It allows you to generate strong passwords, store them along with associated websites and email addresses, and retrieve them when needed.
+</h3>
+
+<h1 align="center">
+	Showcase
+</h1>
+image image
 
 ## Installation
 
