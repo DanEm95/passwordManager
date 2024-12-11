@@ -14,6 +14,7 @@ To run the Password Manager you will need to have Python installed on your syste
    pip install pyperclip
 
 # Usage
+```python
 1. Open the password_manager.pyw file to launch the application.
 2. Fill in the fields:
  - Website: Enter the name of the website for which you want to save the password.
