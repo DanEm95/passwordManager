@@ -8,7 +8,7 @@
 </h1>
 
 <h3 align="center">
-Password Manager is a simple Python application that helps you securely store and manage your passwords. It allows you to generate strong passwords, store them along with associated websites and email addresses, and retrieve them when needed.
+Password Manager is a simple Python application that helps you securely store and manage your passwords.
 </h3>
 
 <h1 align="center">
