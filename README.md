@@ -3,6 +3,10 @@
 <p align=center>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 <a href="https://github.com/DanEm95"><img src="https://img.shields.io/badge/lead-DanEm95-lightblue"></a>
+<a href="https://semver.org">
+    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="Version: 1.0.0">
+</a>
+
 
 </p>
 </h1>
