@@ -45,12 +45,6 @@ To run the Password Manager you will need to have Python installed on your syste
 6. To retrieve a saved password, enter the website name and click on Search.
 ```
 
-## Updated v1.1.0 changes
- - Change of logo.
- - Added temporary email functionality: Allows users to generate a temporary email for website signups directly from the app using 10minutemail.net.
- - Improved UI: Includes improved navigation between password management and temporary email features.
- - Bug fixes and performance enhancements: Various updates to ensure a smoother operation and better user experience.
-
 ## MyMinuteMail usage
 ### Note: To return to MyPass, simply click on the logo
 ```
@@ -68,6 +62,12 @@ To run the Password Manager you will need to have Python installed on your syste
  - Securely store and retrieve passwords.
  - Automatically copy generated passwords to clipboard for easy access.
  - **new**  Manage temporary 10 minute emails for website signups to avoid using your personal email
+
+## Updated v1.1.0 changes
+ - Change of logo.
+ - Added temporary email functionality: Allows users to generate a temporary email for website signups directly from the app using 10minutemail.net.
+ - Improved UI: Includes improved navigation between password management and temporary email features.
+ - Bug fixes and performance enhancements: Various updates to ensure a smoother operation and better user experience.
 
 ## Contribute
 Pull requests are welcome! If you have suggestions for improvements or new features, please open a new issue to discuss what you would like to see changed.
