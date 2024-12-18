@@ -146,7 +146,8 @@ def fetch_emails():
 def read_email(event):
     # Get the selected index from the email listbox
     selection = email_listbox.curselection()
-    
+    # TODO print(selection) emails are selected right but the viewer is showing the input of the other email
+
     if not selection:
         email_content.delete("1.0", "end")
         email_content.insert("1.0", "No email selected.")
@@ -177,6 +178,8 @@ def read_email(event):
 
 # ---------------------------- SHOW BUTTONS, FIELDS, AND LABELS FUNCTION ------------------------------- #
 def show_password_generator():
+    window.minsize(width=535, height=450)
+
     # Show buttons
     search_button.grid(row=1, column=2)
     generate_password_button.grid(row=3, column=2)
@@ -209,6 +212,8 @@ def show_password_generator():
 
 # ---------------------------- HIDE BUTTONS, FIELDS, AND LABELS FUNCTION ------------------------------- #
 def show_ten_minute_mail():
+    window.minsize(width=535, height=575)
+
     global temp_email_button
     # Hide buttons
     search_button.grid_forget()
@@ -240,6 +245,7 @@ def show_ten_minute_mail():
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
+window.minsize(width=535, height=450)
 
 # Logo
 canvas = Canvas(height=200, width=200)
