@@ -15,7 +15,7 @@ Password Manager is a simple Python application that helps you securely store an
 	Showcase
 </h1>
 <div align="center" >
-<img src="https://github.com/DanEm95/passwordManager/blob/7926fb3f17d96df1bcd6c0ad7684910e45514598/passwordManager.PNG" alt="passwordManager">
+<img src="https://github.com/DanEm95/passwordManager/blob/main/passwordManager.PNG" alt="passwordManager">
 </div>
 
 ## Installation
