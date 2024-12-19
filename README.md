@@ -33,7 +33,7 @@ To run the Password Manager you will need to have Python installed on your syste
    pip install pyperclip requests beautifulsoup4
 
 ## MyPass Usage
-````
+```
 1. Open the main.pyw file to launch the application.
 2. Fill in the fields:
  	- Website: Enter the name of the website for which you want to save the password.
@@ -43,16 +43,20 @@ To run the Password Manager you will need to have Python installed on your syste
 4. Click Add to securely store your details in the JSON.
 5. You can now paste the password directly where you need it by pressing Ctrl + V.
 6. To retrieve a saved password, enter the website name and click on Search.
+```
 
 ## MyMinuteMail usage
 ### Note: To return to MyPass, simply click on the logo
-````
+```
 1. Click on the 'Generate a 10 MinuteMail with MyMinuteMail' button in MyPass.
 2. Generate a temporary email:
 	- Click "Generate email" to obtain a temporary email address.
 	- The email will be automatically filled in the Email/Username field.
-3. Email Viewer:
+2. Email Viewer:
 	- Double-click an email in the list to view its contents.
+"This feature is not yet ready, but it supports reading content from the email inbox in real time.
+```
+
 
 ## Features
  - Generate strong, random passwords.
