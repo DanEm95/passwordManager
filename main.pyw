@@ -2,16 +2,16 @@ import json
 import random
 import string
 import tkinter as tk
-from tkinter import ttk, messagebox
-from tkinter import filedialog
+from tkinter import messagebox
 import pyperclip
 import requests
 import time
 import threading
-from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
-from bs4 import BeautifulSoup
 import threading
 import time
+from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
+from bs4 import BeautifulSoup
+from selenium import webdriver
 
 class PasswordManagerApp(tk.Tk):
     def __init__(self):
@@ -22,7 +22,7 @@ class PasswordManagerApp(tk.Tk):
 
         # UI setup
         self.canvas = tk.Canvas(height=200, width=200)
-from selenium import webdriver
+
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 email_cache = []
@@ -229,7 +229,13 @@ def read_email(event=None):
 
 # ---------------------------- SHOW PASSWORD GENERATOR FUNCTION ------------------------------- #
 def show_password_generator():
+    global logo_img
+
     window.minsize(width=535, height=450)
+
+    canvas.delete(logo_img)
+    logo_img = PhotoImage(file="logo.png")
+    canvas.create_image(100, 100, image=logo_img)
 
     search_button.grid(row=1, column=2)
     generate_password_button.grid(row=3, column=2)
@@ -255,7 +261,13 @@ def show_password_generator():
 
 # ---------------------------- SHOW TEN MINUTE MAIL FUNCTION ------------------------------- #
 def show_ten_minute_mail():
+    global logo_img
+
     window.minsize(width=535, height=575)
+    
+    canvas.delete(logo_img)
+    logo_img = PhotoImage(file="logoMyMail.png")
+    canvas.create_image(100, 100, image=logo_img)
     
     search_button.grid_forget()
     generate_password_button.grid_forget()
