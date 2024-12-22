@@ -38,7 +38,7 @@ To run the Password Manager you will need to have Python installed on your syste
 2. Fill in the fields:
  	- Website
  	- Email/Username
-  - Click Generate Password to generate a strong password. The generated password will automatically be copied to your clipboard.
+	- Password: Click Generate Password to generate a strong password. The generated password will automatically be copied to your clipboard.
 4. Click Add to store your details in the data.json.
 5. You can now paste the password directly where you need it by pressing Ctrl + V.
 6. To retrieve a saved password, enter the website name and click on Search.
