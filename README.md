@@ -8,7 +8,7 @@
 </h1>
 
 <h3 align="center">
-Password Manager is a simple Python application that helps you securely store and manage your passwords.
+Password Manager is a simple Python application that helps you securely store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
 </h3>
 
 <h1 align="center">Showcase</h1>
@@ -17,8 +17,8 @@ Password Manager is a simple Python application that helps you securely store an
 		<img src="https://github.com/DanEm95/passwordManager/blob/main/passwordManager.PNG" alt="passwordManager">
 	</div>
 	<div align="center" >
-		<h3>MyMinuteMail BETA</h3>
-		<img src="https://github.com/DanEm95/passwordManager/blob/main/myMinuteMail.PNG" alt="passwordManager">
+		<h3>MyMail</h3>
+		<img src="https://github.com/DanEm95/passwordManager/blob/main/myMail.PNG" alt="passwordManager">
 	</div>
 
 ## Installation
@@ -30,44 +30,41 @@ To run the Password Manager you will need to have Python installed on your syste
    git clone https://github.com/DanEm95/passwordManager.git
 2. Install the required packages:
    ```bash
-   pip install pyperclip requests beautifulsoup4
+	 pip install beautifulsoup4, selenium, pyperclip, requests
 
 ## MyPass Usage
 ```
-1. Open the main.pyw file to launch the application.
+1. Open the main.pyw file.
 2. Fill in the fields:
- 	- Website: Enter the name of the website for which you want to save the password.
- 	- Email/Username: Enter your email or username associated with this website.
-3. Click Generate Password to generate a strong password.
-	- The generated password will automatically be copied to your clipboard.
-4. Click Add to securely store your details in the JSON.
+ 	- Website
+ 	- Email/Username
+  - Click Generate Password to generate a strong password. The generated password will automatically be copied to your clipboard.
+4. Click Add to store your details in the data.json.
 5. You can now paste the password directly where you need it by pressing Ctrl + V.
 6. To retrieve a saved password, enter the website name and click on Search.
 ```
 
-## MyMinuteMail usage
+## MyMail usage
 ### Note: To return to MyPass, simply click on the logo
 ```
-1. Click on the 'Generate a 10 MinuteMail with MyMinuteMail' button in MyPass.
-2. Generate a temporary email:
-	- Click "Generate email" to obtain a temporary email address.
-	- The email will be automatically filled in the Email/Username field.
+1. Click on the grey 'Generate a 10 MinuteMail with MyMail' button in MyPass.
+2. To generate a temporary email address for 10 minutes:
+	- Click "Generate email".
+	- The email will be automatically filled in the Email field and copied to your clipboard.
 2. Email Viewer:
-	- Double-click an email in the list to view its contents.
-"This feature is not yet ready, but it supports reading content from the email inbox in real time.
+	- Double-click an email in the Inbox list to view its contents.
 ```
-
 
 ## Features
  - Generate strong, random passwords.
  - Securely store and retrieve passwords.
  - Automatically copy generated passwords to clipboard for easy access.
- - Manage temporary 10 minute emails for website signups to avoid using your personal email
+ - Manage temporary 10 minute emails for website signups to avoid using your personal email.
 
-## Updated v1.1.2 changes
- - Update README with new features and changes.
- - Improved UI: Includes improved navigation between password management and temporary email features.
- - Bug fixes and performance enhancements: Various updates to ensure a smoother operation and better user experience.
+## Updated v1.1.4 changes
+ - Updated README with new features and changes.
+ - Implemented MyMail logic
+ - Bug fixes and performance improvements: Updates to ensure smoother operation and better user experience.
 
 ## Contribute
 Pull requests are welcome! If you have suggestions for improvements or new features, please open a new issue to discuss what you would like to see changed.

@@ -1,28 +1,14 @@
+from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 import json
 import random
 import string
-import tkinter as tk
-from tkinter import messagebox
 import pyperclip
 import requests
 import time
 import threading
-import threading
-import time
-from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
-from bs4 import BeautifulSoup
-from selenium import webdriver
-
-class PasswordManagerApp(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("Password Manager")
-        self.minsize(535, 450)
-        self.config(padx=50, pady=50)
-
-        # UI setup
-        self.canvas = tk.Canvas(height=200, width=200)
-
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 email_cache = []
@@ -103,16 +89,16 @@ def find_password():
 # ---------------------------- TEMPORARY EMAIL FUNCTIONS ------------------------------- #
 def create_temp_email():
     global session_id
-    response = requests.get('https://10minutemail.net/')
-    soup = BeautifulSoup(response.text, 'html.parser')
-    temp_email_input = soup.find('input', {'class': 'mailtext'})
-    
+    driver.get('https://10minutemail.net/')
+
+    temp_email_input = driver.find_element(By.CLASS_NAME, 'mailtext')
+
     if temp_email_input is None:
         messagebox.showinfo(title="Error", message="Failed to generate temporary email.")
         return
     
-    temp_email = temp_email_input['value']
-    session_id = response.cookies.get('PHPSESSID')
+    temp_email = temp_email_input.get_attribute('value')
+    session_id = driver.get_cookie('PHPSESSID')['value']
     
     my_minutemail_entry.delete(0, "end")
     my_minutemail_entry.insert(0, temp_email)
@@ -128,31 +114,6 @@ def create_temp_email():
     fetch_emails()
     threading.Thread(target=update_timer, daemon=True).start()
     
-def update_timer():
-    global session_id
-    while True:
-        try:
-            driver.get('https://10minutemail.net/')
-            soup = BeautifulSoup(driver.page_source, 'html.parser')
-            
-            countdown_label.config(text=soup.find('span', {'id': 'time'}).text.strip())
-            
-            if not countdown_label["text"].strip() == "00:00":
-                temp_email_button.config(state="disabled")
-                my_minutemail_entry.config(state="readonly")
-
-            # Check if the timer has ended
-            if countdown_label["text"].strip() == "00:00":
-                driver.quit()
-                my_minutemail_entry.config(state="normal")
-                timer_label.config(text="Timer ended!")
-                break
-        
-        except Exception as e:
-            messagebox.showinfo(title="Error", message=f"Failed to update timer: {e}")
-          
-    driver.quit()  # Close the browser instance
-
 def fetch_emails():
     def check_inbox(session_id):
         global email_cache
@@ -201,16 +162,16 @@ def read_email(event=None):
     email_url = email_data['url']
 
     try:
-        response = requests.get(email_url)
-        soup = BeautifulSoup(response.text, 'html.parser')
+        driver.get(email_url)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
         
         tab_content = soup.find('div', {'id': 'tab1'})
+        
         mail_content = tab_content.find_all('div', {'class': 'mailinhtml'}) if tab_content else None
 
         if not mail_content:
             tab_content = soup.find('div', {'id': 'tab3'})
             mail_content = tab_content.find_all('p', {'class': 'mailinhtml'}) if tab_content else None
-
         if not mail_content:
             email_content.delete("1.0", "end")
             email_content.insert("1.0", "No email content found.")
@@ -218,6 +179,7 @@ def read_email(event=None):
 
         email_text = "\n\n".join(content.get_text(separator="\n", strip=True) for content in mail_content)
 
+        email_content.config(state='normal')
         email_content.delete("1.0", "end")
         email_content.insert("1.0", email_text)
 
@@ -227,10 +189,34 @@ def read_email(event=None):
     
     email_content.config(state='disabled')
 
+def update_timer():
+    global session_id
+    while True:
+        try:
+            #driver.get('https://10minutemail.net/')
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            
+            countdown_label.config(text=soup.find('span', {'id': 'time'}).text.strip())
+            
+            if not countdown_label["text"].strip() == "00:00":
+                temp_email_button.config(state="disabled")
+                my_minutemail_entry.config(state="readonly")
+
+            # Check if the timer has ended
+            if countdown_label["text"].strip() == "00:00":
+                driver.quit()
+                my_minutemail_entry.config(state="normal")
+                timer_label.config(text="Timer ended!")
+                break
+        
+        except Exception as e:
+            messagebox.showinfo(title="Error", message=f"Failed to update timer: {e}")
+          
+    driver.quit()  # Close the browser instance
+
 # ---------------------------- SHOW PASSWORD GENERATOR FUNCTION ------------------------------- #
 def show_password_generator():
     global logo_img
-
     window.minsize(width=535, height=450)
 
     canvas.delete(logo_img)
@@ -342,7 +328,7 @@ add_button.grid(row=4, column=0, columnspan=3)
 
 temp_email_button = Button(text="Generate Email", width=14, command=create_temp_email)
 
-hide_buttons_fields_and_labels_button = Button(text="Generate a 10 MinuteMail with MyMinuteMail", width=60, bg="#cdcccd",
+hide_buttons_fields_and_labels_button = Button(text="Generate a 10 Minute Mail with MyMail", width=60, bg="#cdcccd",
                                                command=show_ten_minute_mail)                                               
 hide_buttons_fields_and_labels_button.grid(row=8, columnspan=3)
 
