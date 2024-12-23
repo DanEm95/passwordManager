@@ -61,9 +61,10 @@ To run the Password Manager you will need to have Python installed on your syste
  - Automatically copy generated passwords to clipboard for easy access.
  - Manage temporary 10 minute emails for website signups to avoid using your personal email.
 
-## Updated v1.1.4 changes
- - Updated README with new features and changes.
- - Implemented MyMail logic
+## Updated v1.1.5 changes
+ - Implemented Search logic
+ - Update of the generate_password() function with secrets and string libraries
+ - New listbox for selecting JSON data and displaying it in entries
  - Bug fixes and performance improvements: Updates to ensure smoother operation and better user experience.
 
 ## Contribute

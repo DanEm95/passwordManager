@@ -10,7 +10,6 @@ import time
 import threading
 import secrets
 import string
-import os
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 email_cache = []
@@ -56,6 +55,16 @@ def save_password():
 
 # ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
+    try:
+        data = read_json("data.json")
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No data file found.")
+        return
+
+    if not data:
+        messagebox.showinfo(title="Error", message="No passwords stored in JSON file. Please save some passwords first.")
+        return
+
     def select_data():
         selected_index = listbox.curselection()
         if selected_index:
@@ -73,19 +82,11 @@ def find_password():
                 messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
             else:
                 messagebox.showinfo(title="Error", message=f"No details for {website} found.")
-        else:
-            messagebox.showinfo(title="Error", message="Please select a website from the list.")
-
     search_button.config(state='disabled')
     root = Tk()
     root.title("Select Website")
     listbox = Listbox(root, width=50, height=20)
     listbox.pack(pady=10)
-    try:
-        data = read_json("data.json")
-    except FileNotFoundError:
-        messagebox.showinfo(title="Error", message="No data file found.")
-        return
 
     for website in data:
         listbox.insert(END, website)
@@ -117,6 +118,32 @@ def find_password():
                 messagebox.showinfo(title="Error", message=f"No details for {website} found.")
     button = Button(root, text="Insert into Entry and Close Listbox", command=insert_into_entry)
     button.pack(pady=10)
+
+    def delete_and_close():
+        selected_index = listbox.curselection()
+        if selected_index:
+            data_index = selected_index[0]
+            website = listbox.get(data_index)
+            try:
+                data = read_json("data.json")
+            except FileNotFoundError:
+                messagebox.showinfo(title="Error", message="No data file found.")
+                return
+
+            if website in data:
+                del data[website]
+                write_json("data.json", data)
+                listbox.delete(selected_index)
+                search_button.config(state='normal')
+
+                # Check if the list is empty after deletion
+                if not listbox.get(0, END):
+                    root.destroy()
+            else:
+                messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+
+    delete_button = Button(root, text="Delete From Listbox", command=delete_and_close)
+    delete_button.pack(pady=10)
     root.mainloop()
 
 # ---------------------------- FILE HANDLING UTILS ------------------------------- #
