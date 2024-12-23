@@ -1,14 +1,16 @@
-from tkinter import Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
+from tkinter import END, Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import json
-import random
 import string
 import pyperclip
 import requests
 import time
 import threading
+import secrets
+import string
+import os
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 email_cache = []
@@ -21,26 +23,12 @@ driver = webdriver.Chrome(options=chrome_options)
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
-    letters = string.ascii_letters
-    numbers = string.digits
-    password_length = 24
+    password_length = 20
+    pool = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(pool) for _ in range(password_length))
+    formatted_password = '-'.join(password[i:i+6] for i in range(0, len(password), 7))
 
-    nr_letters = random.randint(8, 10)
-    nr_numbers = random.randint(2, 4)
-
-    while nr_letters + nr_numbers < password_length:
-        if nr_letters < 10:
-            nr_letters += 1
-        else:
-            nr_numbers += 1
-
-    password_list = [random.choice(letters) for _ in range(nr_letters)] + \
-                    [random.choice(numbers) for _ in range(nr_numbers)]
-    random.shuffle(password_list)
-
-    formatted_password = '-'.join(''.join(password_list[i:i+4]) for i in range(0, len(password_list), 4))
-
-    password_entry.delete(0, "end")
+    password_entry.delete(0, END)
     password_entry.insert(0, formatted_password)
     pyperclip.copy(formatted_password)
 
@@ -56,35 +44,89 @@ def save_password():
 
     new_data = {website: {"email": email, "password": password}}
     try:
-        with open("data.json", "r") as data_file:
-            data = json.load(data_file)
+        data = read_json("data.json")
     except FileNotFoundError:
         data = {}
 
     data.update(new_data)
-
-    with open("data.json", "w") as data_file:
-        json.dump(data, data_file, indent=4)
+    write_json("data.json", data)
 
     website_entry.delete(0, "end")
     password_entry.delete(0, "end")
 
 # ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
-    website = website_entry.get().strip()
+    def select_data():
+        selected_index = listbox.curselection()
+        if selected_index:
+            data_index = selected_index[0]
+            website = listbox.get(data_index)
+            try:
+                data = read_json("data.json")
+            except FileNotFoundError:
+                messagebox.showinfo(title="Error", message="No data file found.")
+                return
+
+            if website in data:
+                email = data[website]["email"]
+                password = data[website]["password"]
+                messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+            else:
+                messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+        else:
+            messagebox.showinfo(title="Error", message="Please select a website from the list.")
+
+    search_button.config(state='disabled')
+    root = Tk()
+    root.title("Select Website")
+    listbox = Listbox(root, width=50, height=20)
+    listbox.pack(pady=10)
     try:
-        with open("data.json", "r") as data_file:
-            data = json.load(data_file)
+        data = read_json("data.json")
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message="No data file found.")
         return
 
-    if website in data:
-        email = data[website]["email"]
-        password = data[website]["password"]
-        messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
-    else:
-        messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+    for website in data:
+        listbox.insert(END, website)
+
+    def insert_into_entry():
+        selected_index = listbox.curselection()
+        if selected_index:
+            data_index = selected_index[0]
+            website = listbox.get(data_index)
+            try:
+                data = read_json("data.json")
+            except FileNotFoundError:
+                messagebox.showinfo(title="Error", message="No data file found.")
+                return
+
+            if website in data:
+                email = data[website]["email"]
+                password = data[website]["password"]
+                website_entry.delete(0, "end")
+                website_entry.insert(0, website)
+                email_entry.delete(0, "end")
+                email_entry.insert(0, email)
+                password_entry.delete(0, "end")
+                password_entry.insert(0, password)
+                pyperclip.copy(password)
+                search_button.config(state='normal')
+                root.destroy()
+            else:
+                messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+    button = Button(root, text="Insert into Entry and Close Listbox", command=insert_into_entry)
+    button.pack(pady=10)
+    root.mainloop()
+
+# ---------------------------- FILE HANDLING UTILS ------------------------------- #
+def read_json(file_path):
+    with open(file_path, "r") as file:
+        return json.load(file)
+
+def write_json(file_path, data):
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
 
 # ---------------------------- TEMPORARY EMAIL FUNCTIONS ------------------------------- #
 def create_temp_email():
@@ -193,9 +235,7 @@ def update_timer():
     global session_id
     while True:
         try:
-            #driver.get('https://10minutemail.net/')
             soup = BeautifulSoup(driver.page_source, 'html.parser')
-            
             countdown_label.config(text=soup.find('span', {'id': 'time'}).text.strip())
             
             if not countdown_label["text"].strip() == "00:00":
