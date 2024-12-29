@@ -7,19 +7,16 @@
 </p>
 </h1>
 
-<h3 align="center">
-Password Manager is a simple Python application that helps you securely store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
+<h3 align="">
+	Password Manager is a simple Python application that helps you securely store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
 </h3>
 
-<h1 align="center">Showcase</h1>
-	<div align="center" >
-		<h3>MyPass</h3>
-		<img src="https://github.com/DanEm95/passwordManager/blob/main/passwordManager.PNG" alt="passwordManager">
-	</div>
-	<div align="center" >
-		<h3>MyMail</h3>
-		<img src="https://github.com/DanEm95/passwordManager/blob/main/myMail.PNG" alt="passwordManager">
-	</div>
+<h1 align="">
+	Showcase
+</h1>
+
+[myPassShowcase.mp4](https://github.com/user-attachments/assets/0b750d0f-6423-4027-8956-797edcc99ab7)
+
 
 ## Installation
 
