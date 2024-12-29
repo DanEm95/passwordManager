@@ -13,11 +13,6 @@ Password Manager is a simple Python application that helps you securely store an
 
 <h1 align="center">Showcase</h1>
 	<div align="center" >
-		<h3>MyMail</h3>
-		<img src="https://github.com/user-attachments/assets/0b750d0f-6423-4027-8956-797edcc99ab7" alt="passwordManager">
-		https://github.com/user-attachments/assets/0b750d0f-6423-4027-8956-797edcc99ab7
-	</div>
-	<div align="center" >
 		<h3>MyPass</h3>
 		<img src="https://github.com/DanEm95/passwordManager/blob/main/passwordManager.PNG" alt="passwordManager">
 	</div>
