@@ -1,6 +1,11 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+logo.png
+logoMyMail.png
+myMail.PNG
+passwordManager.PNG
+templateLogo.xcf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
