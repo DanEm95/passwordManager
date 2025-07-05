@@ -8,7 +8,7 @@
 </h1>
 
 <h3 align="">
-	Password Manager is a simple Python application that helps you securely store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
+	Password Manager is a simple Python application that helps you store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
 </h3>
 
 <h1 align="">
@@ -20,12 +20,15 @@
 
 ## Installation with start.bat
 
+**Note: This setup is configured for Windows only. For other operating systems, please inform yourself accordingly.**
+
 1. Go to the [Password Manager GitHub page](https://github.com/DanEm95/passwordManager).
 2. Click the green **Code** button at the top right.
-3. Select **Download ZIP** to download the project.
-4. Choose any folder you like and extract the ZIP file there, or create a folder called 'dev' on your C: drive (e.g. C:\dev\) and extract the ZIP file there.
-5. Open the extracted Folder (passwordManager).
-6. Double-click **start.bat**.
+3. Select **Local** at the top of the dropdown.
+4. Select **Download ZIP** to download the project.
+5. Choose any folder you like and extract the ZIP file there, or create a folder called 'dev' on your C: drive (e.g. C:\dev\) and extract the ZIP file there.
+6. Open the extracted Folder (passwordManager).
+7. Double-click **start.bat**.
 
 When you double-click the batch file, it will **automatically set up everything you need to run the Password Manager**, even if you have no programming experience. Here’s what will happen, step by step:
 
@@ -40,7 +43,7 @@ When you double-click the batch file, it will **automatically set up everything 
    The script creates a special ".venv" folder (called a “virtual environment”) inside your project. This keeps all the necessary files and settings for the Password Manager separate from the rest of your computer.
 
 4. **Activate the Environment:**  
-   It activates this environment so the next steps only affect your Password Manager and not other programs.
+   It activates this environment so the next steps only affect your Password Manager **enviroment** and not other venv enviroments.
 
 5. **Install and Update Required Tools:**  
    The script will download and update everything the Password Manager needs to work (like BeautifulSoup, Selenium, pyperclip, and requests). These are called “libraries” or “packages.”
@@ -49,7 +52,9 @@ When you double-click the batch file, it will **automatically set up everything 
    Finally, the script will automatically start the Password Manager program for you.
 
 
-## Manual Installation (Without start.bat)
+## Manual Installation (Without the start.bat)
+
+**Note: This setup is configured for Windows only. For other operating systems, please inform yourself accordingly.**
 
 To run the Password Manager you will need to have Python installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
 
