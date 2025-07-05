@@ -73,26 +73,25 @@ To run the Password Manager you will need to have Python installed on your syste
 
 ## MyPass Usage
 ```
-1. Open the main.pyw file.
-2. Fill in the fields:
+1. Fill in the fields:
  	- Website
  	- Email/Username
 	- Password: Click Generate Password to generate a strong password. The generated password will automatically be copied to your clipboard.
-4. Click Add to store your details in the data.json.
-5. You can now paste the password directly where you need it by pressing Ctrl + V.
-6. To retrieve a saved password, enter the website name and click on Search.
+2. Click Add to store your details in the data.json.
+3. You can now paste the password directly where you need it by pressing Ctrl + V.
+4. To retrieve a saved password, enter the website name and click on Search.
 ```
 
 ## MyMail usage
-### Note: To return to MyPass, simply click on the logo
 ```
 1. Click on the grey 'Generate a 10 MinuteMail with MyMail' button in MyPass.
 2. To generate a temporary email address for 10 minutes:
 	- Click "Generate email".
 	- The email will be automatically filled in the Email field and copied to your clipboard.
-2. Email Viewer:
+3. Email Viewer:
 	- Double-click an email in the Inbox list to view its contents.
 ```
+### Note: To return to MyPass, simply click on the logo
 
 ## Features
  - Generate strong, random passwords.
