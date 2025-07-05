@@ -18,14 +18,51 @@
 [myPassShowcase.mp4](https://github.com/user-attachments/assets/0b750d0f-6423-4027-8956-797edcc99ab7)
 
 
-## Installation
+## Installation with start.bat
+
+1. Go to the [Password Manager GitHub page](https://github.com/DanEm95/passwordManager).
+2. Click the green **Code** button at the top right.
+3. Select **Download ZIP** to download the project.
+4. Choose any folder you like and extract the ZIP file there, or create a folder called 'dev' on your C: drive (e.g. C:\dev\) and extract the ZIP file there.
+5. Open the extracted Folder (passwordManager).
+6. Double-click **start.bat**.
+
+When you double-click the batch file, it will **automatically set up everything you need to run the Password Manager**, even if you have no programming experience. Here’s what will happen, step by step:
+
+1. **Check for Python:**  
+   The script first checks if Python is already installed on your computer.
+
+2. **Install or Update Python:**  
+   - If Python is **not installed**, it will automatically download and install the latest version of Python for you.
+   - If Python **is already installed**, it will update Python to the newest version.
+
+3. **Set Up a Safe Environment:**  
+   The script creates a special ".venv" folder (called a “virtual environment”) inside your project. This keeps all the necessary files and settings for the Password Manager separate from the rest of your computer.
+
+4. **Activate the Environment:**  
+   It activates this environment so the next steps only affect your Password Manager and not other programs.
+
+5. **Install and Update Required Tools:**  
+   The script will download and update everything the Password Manager needs to work (like BeautifulSoup, Selenium, pyperclip, and requests). These are called “libraries” or “packages.”
+
+6. **Start the Password Manager:**  
+   Finally, the script will automatically start the Password Manager program for you.
+
+
+## Manual Installation (Without start.bat)
 
 To run the Password Manager you will need to have Python installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
 
 1. Clone this repository:
    ```bash
    git clone https://github.com/DanEm95/passwordManager.git
-2. Install the required packages:
+2. Create a virtual environment in the project folder:
+   ```bash
+	 python -m venv .venv
+2. Activate the virtual environment:
+   ```bash
+	 .\.venv\Scripts\activate
+4. Install the required packages:
    ```bash
 	 pip install beautifulsoup4, selenium, pyperclip, requests
 
