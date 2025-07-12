@@ -1,4 +1,4 @@
-from tkinter import END, Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text
+from tkinter import END, Tk, Canvas, PhotoImage, Label, Entry, Button, messagebox, Listbox, Text, filedialog
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,7 +9,7 @@ import requests
 import time
 import threading
 import secrets
-import string
+import keyring
 
 # ---------------------------- GLOBAL VARIABLES ------------------------------- #
 email_cache = []
@@ -17,7 +17,7 @@ session_id = None
 
 # ---------------------------- STARTING SELENIUM ------------------------------- #
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('headless')  # Run in headless mode
+chrome_options.add_argument('headless')
 driver = webdriver.Chrome(options=chrome_options)
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -40,8 +40,10 @@ def save_password():
     if not website or not email or not password:
         messagebox.showinfo(title="Oops", message="Please fill in all fields.")
         return
+    
+    keyring.set_password(website, email, password)
 
-    new_data = {website: {"email": email, "password": password}}
+    new_data = {website: {"email": email}}
     try:
         data = read_json("data.json")
     except FileNotFoundError:
@@ -62,7 +64,7 @@ def find_password():
         return
 
     if not data:
-        messagebox.showinfo(title="Error", message="No passwords stored in JSON file. Please save some passwords first.")
+        messagebox.showinfo(title="Error", message="No passwords stored in the data.json file. Please add some passwords first.")
         return
 
     def select_data():
@@ -73,15 +75,18 @@ def find_password():
             try:
                 data = read_json("data.json")
             except FileNotFoundError:
-                messagebox.showinfo(title="Error", message="No data file found.")
+                messagebox.showinfo(title="Error", message="No data.json file found.")
                 return
 
             if website in data:
                 email = data[website]["email"]
-                password = data[website]["password"]
+                password = keyring.get_password(website, email)
+                if password is None:
+                    password = "<No password was found in the keyring.>"
                 messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
             else:
                 messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+
     search_button.config(state='disabled')
     root = Tk()
     root.title("Select Website")
@@ -99,12 +104,14 @@ def find_password():
             try:
                 data = read_json("data.json")
             except FileNotFoundError:
-                messagebox.showinfo(title="Error", message="No data file found.")
+                messagebox.showinfo(title="Error", message="No data.json file found.")
                 return
 
             if website in data:
                 email = data[website]["email"]
-                password = data[website]["password"]
+                password = keyring.get_password(website, email)
+                if password is None:
+                    password = ""
                 website_entry.delete(0, "end")
                 website_entry.insert(0, website)
                 email_entry.delete(0, "end")
@@ -116,6 +123,7 @@ def find_password():
                 root.destroy()
             else:
                 messagebox.showinfo(title="Error", message=f"No details for {website} found.")
+
     button = Button(root, text="Insert into Entry and Close Listbox", command=insert_into_entry)
     button.pack(pady=10)
 
@@ -127,16 +135,17 @@ def find_password():
             try:
                 data = read_json("data.json")
             except FileNotFoundError:
-                messagebox.showinfo(title="Error", message="No data file found.")
+                messagebox.showinfo(title="Error", message="No data.json file found.")
                 return
 
             if website in data:
+                email = data[website]["email"]
+                keyring.delete_password(website, email)
                 del data[website]
                 write_json("data.json", data)
                 listbox.delete(selected_index)
                 search_button.config(state='normal')
 
-                # Check if the list is empty after deletion
                 if not listbox.get(0, END):
                     root.destroy()
             else:
@@ -179,7 +188,7 @@ def create_temp_email():
     email_content.delete("1.0", "end")
     email_cache.clear()
 
-    
+
     fetch_emails()
     threading.Thread(target=update_timer, daemon=True).start()
     
@@ -207,7 +216,7 @@ def fetch_emails():
             except Exception as e:
                 email_listbox.delete(0, "end")
                 email_listbox.insert("end", f"Error fetching emails: {e}")
-            time.sleep(10)  # Update every 10 seconds
+            time.sleep(10)
 
     threading.Thread(target=check_inbox, args=(session_id,), daemon=True).start()
 
@@ -269,7 +278,6 @@ def update_timer():
                 temp_email_button.config(state="disabled")
                 my_minutemail_entry.config(state="readonly")
 
-            # Check if the timer has ended
             if countdown_label["text"].strip() == "00:00":
                 driver.quit()
                 my_minutemail_entry.config(state="normal")
@@ -277,9 +285,43 @@ def update_timer():
                 break
         
         except Exception as e:
-            messagebox.showinfo(title="Error", message=f"Failed to update timer: {e}")
+            # messagebox.showinfo(title="Error", message=f"Failed to update timer: {e}")
+            continue
           
-    driver.quit()  # Close the browser instance
+    driver.quit()
+
+# ---------------------------- EXPORT JSON ------------------------------- #
+def export_full_json():
+    try:
+        data = read_json("data.json")
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No data.json file found.")
+        return
+
+    export_data = {}
+    for website, info in data.items():
+        email = info.get("email", "")
+        password = keyring.get_password(website, email)
+        export_data[website] = {
+            "email": email,
+            "password": password if password is not None else ""
+        }
+
+    json_file = filedialog.asksaveasfilename(
+        defaultextension=".json",
+        filetypes=[("JSON files", "*.json")],
+        title="Export as a JSON file"
+    )
+    if not json_file:
+        return
+
+    try:
+        with open(json_file, "w", encoding="utf-8") as jf:
+            json.dump(export_data, jf, indent=4)
+        messagebox.showinfo(title="Export successfully.", message=f"The data has been saved at {json_file}.")
+    except Exception as e:
+        messagebox.showinfo(title="Error", message=f"Export failed: {e}")
+
 
 # ---------------------------- SHOW PASSWORD GENERATOR FUNCTION ------------------------------- #
 def show_password_generator():
@@ -287,12 +329,13 @@ def show_password_generator():
     window.minsize(width=535, height=450)
 
     canvas.delete(logo_img)
-    logo_img = PhotoImage(file="logo.png")
+    logo_img = PhotoImage(file="logoMyPass.png")
     canvas.create_image(100, 100, image=logo_img)
 
     search_button.grid(row=1, column=2)
     generate_password_button.grid(row=3, column=2)
     add_button.grid(row=4, column=0, columnspan=3)
+    export_json_button.grid(row=9, columnspan=3, pady=10)
     hide_buttons_fields_and_labels_button.grid(row=8, columnspan=3)
 
     website_entry.grid(row=1, column=1)
@@ -325,6 +368,7 @@ def show_ten_minute_mail():
     search_button.grid_forget()
     generate_password_button.grid_forget()
     add_button.grid_forget()
+    export_json_button.grid_forget()
     hide_buttons_fields_and_labels_button.grid_forget()
     
     website_entry.grid_forget()
@@ -352,7 +396,7 @@ window.config(padx=50, pady=50)
 window.minsize(width=535, height=450)
 
 canvas = Canvas(height=200, width=200)
-logo_img = PhotoImage(file="logo.png")
+logo_img = PhotoImage(file="logoMyPass.png")
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(row=0, column=1)
 canvas.bind("<Button-1>", lambda event: show_password_generator())
@@ -392,6 +436,9 @@ generate_password_button.grid(row=3, column=2)
 
 add_button = Button(text="Add", width=60, command=save_password)
 add_button.grid(row=4, column=0, columnspan=3)
+
+export_json_button = Button(text="Export as a JSON file", width=20, command=export_full_json)
+export_json_button.grid(row=9, columnspan=3, pady=10)
 
 temp_email_button = Button(text="Generate Email", width=14, command=create_temp_email)
 

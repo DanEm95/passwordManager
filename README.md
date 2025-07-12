@@ -18,76 +18,76 @@
 [myPassShowcase.mp4](https://github.com/user-attachments/assets/0b750d0f-6423-4027-8956-797edcc99ab7)
 
 
-## Installation with start.bat
+## Installation with installationStart.bat
 
 **Note: This setup is configured for Windows only. For other operating systems, please inform yourself accordingly.**
 
-1. Go to the [Password Manager GitHub page](https://github.com/DanEm95/passwordManager).
-2. Click the green **Code** button at the top right.
-3. Select **Local** at the top of the dropdown.
-4. Select **Download ZIP** to download the project.
-5. Choose any folder you like and extract the ZIP file there, or create a folder called 'dev' on your C: drive (e.g. C:\dev\) and extract the ZIP file there.
-6. Open the extracted Folder (passwordManager).
-7. Double-click **start.bat**.
+1. To download the ZIP folder, either click [here](https://github.com/DanEm95/passwordManager/archive/refs/heads/main.zip), or click the green **Code** button at the top right.
+2. If you clicked the green Code button, select **Local** at the top of the dropdown.
+3. Select **Download ZIP** to download the project.
+4. Extract the ZIP file and create a folder called "dev" on your C: drive (e.g. "C:\dev\") and extract the ZIP file there. Alternatively, you have the option to save it in any desired folder.
+5. Open the extracted Folder (passwordManager).
+6. Double-click **installationStart.bat**.
+7. Once everything has been installed, you can start the Password Manager by clicking **startPasswordManager.vbs**.
 
-When you double-click the batch file, it will **automatically set up everything you need to run the Password Manager**, even if you have no programming experience. Here’s what will happen, step by step:
 
-1. **Check for Python:**  
+When you double-click the **installationStart.bat** file, it will **automatically set up everything you need to run the Password Manager**, even if you have no programming experience. Here’s what will happen, step by step:
+
+1. **Python**  
    The script first checks if Python is already installed on your computer.
-
-2. **Install or Update Python:**  
+  
    - If Python is **not installed**, it will automatically download and install the latest version of Python for you.
    - If Python **is already installed**, it will update Python to the newest version.
 
-3. **Set Up a Safe Environment:**  
-   The script creates a special ".venv" folder (called a “virtual environment”) inside your project. This keeps all the necessary files and settings for the Password Manager separate from the rest of your computer.
+2. **Virtual environment**  
+   The script creates a ".venv" folder (also called a “virtual environment”) inside your project. This keeps all the necessary files and settings for the Password Manager separate from the rest of your venv enviroments. Then, the virtual environment will be activated and all the libraries and packages required by the Password Manager, such as BeautifulSoup, Selenium, Pyperclip, Requests, and Keyring, will be downloaded and updated.
 
-4. **Activate the Environment:**  
-   It activates this environment so the next steps only affect your Password Manager **enviroment** and not other venv enviroments.
-
-5. **Install and Update Required Tools:**  
-   The script will download and update everything the Password Manager needs to work (like BeautifulSoup, Selenium, pyperclip, and requests). These are called “libraries” or “packages.”
-
-6. **Start the Password Manager:**  
+3. **Password Manager**  
    Finally, the script will automatically start the Password Manager program for you.
 
 
-## Manual Installation (Without the start.bat)
+## Manual installation without installationStart.bat
 
 **Note: This setup is configured for Windows only. For other operating systems, please inform yourself accordingly.**
 
 To run the Password Manager you will need to have Python installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
 
-1. Clone this repository:
+1. Clone this repository
    ```bash
    git clone https://github.com/DanEm95/passwordManager.git
-2. Create a virtual environment in the project folder:
+2. Create a virtual environment in the project folder
    ```bash
 	 python -m venv .venv
-2. Activate the virtual environment:
+3. Activate the virtual environment
    ```bash
 	 .\.venv\Scripts\activate
-4. Install the required packages:
+4. Install the required packages
    ```bash
-	 pip install beautifulsoup4, selenium, pyperclip, requests
+	 pip install beautifulsoup4, selenium, pyperclip, requests, keyring
 
 ## MyPass Usage
 ```
 1. Fill in the fields:
  	- Website
  	- Email/Username
-	- Password: Click Generate Password to generate a strong password. The generated password will automatically be copied to your clipboard.
-2. Click Add to store your details in the data.json.
-3. You can now paste the password directly where you need it by pressing Ctrl + V.
+	- Password: Click the "Generate Password" button to generate a strong password. The generated password will automatically be copied to your clipboard.
+
+2. Click "Add" to store your details in the "data.json". (The password will be stored in the Windows Credential Manager. It will not be stored in the "data.json" file).
+
+3. You can now paste the password directly wherever you need it by pressing Ctrl+V. Alternatively, press Win+V to open/activate the clipboard.
+
 4. To retrieve a saved password, enter the website name and click on Search.
+
+5. To export all credentials, including passwords, to a JSON file, click "Export as a JSON file" (For example, you can then save the exported JSON file to a USB stick).
 ```
+### Note: Be very careful with the exported JSON file because it stores all your passwords in plain text that is neither encrypted nor hashed. For example, you might save the JSON file to a USB drive so that you can quickly access and copy your passwords. However, anyone who gains access to the USB drive or the file can easily read your passwords. Make sure to keep the file in a safe place and never share it with others.
 
 ## MyMail usage
 ```
-1. Click on the grey 'Generate a 10 MinuteMail with MyMail' button in MyPass.
-2. To generate a temporary email address for 10 minutes:
-	- Click "Generate email".
-	- The email will be automatically filled in the Email field and copied to your clipboard.
+1. In MyPass, click the gray "Generate a 10 MinuteMail with MyMail" button.
+
+2. To generate a temporary email address for 10 minutes, click "Generate email". The email address will automatically be filled into the Email field and copied to your clipboard.
+
 3. Email Viewer:
 	- Double-click an email in the Inbox list to view its contents.
 ```
@@ -95,15 +95,22 @@ To run the Password Manager you will need to have Python installed on your syste
 
 ## Features
  - Generate strong, random passwords.
- - Securely store and retrieve passwords.
- - Automatically copy generated passwords to clipboard for easy access.
+ - Store and retrieve passwords.
+ - Automatically copies the generated passwords to the clipboard for quick access.
  - Manage temporary 10 minute emails for website signups to avoid using your personal email.
 
-## Updated v1.1.5 changes
- - Implemented Search logic
- - Update of the generate_password() function with secrets and string libraries
- - New listbox for selecting JSON data and displaying it in entries
- - Bug fixes and performance improvements: Updates to ensure smoother operation and better user experience.
+## Updated v1.1.6 changes
+- Passwords are now stored in the Credential Manager (keyring) rather than in "data.json". 
+
+- The "data.json" file is now only used to store website and email information.
+
+- "start.bat" has been removed.
+
+- Added "installationStart.bat" for automated setup and installation.
+
+- Added "startPasswordManager.vbs" for launching the Password Manager after installation.
+
+- Added an export feature that saves your full login details, including passwords, as a JSON file.
 
 ## Contribute
 Pull requests are welcome! If you have suggestions for improvements or new features, please open a new issue to discuss what you would like to see changed.

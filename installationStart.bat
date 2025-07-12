@@ -32,11 +32,10 @@ REM ---- Upgrade pip in venv ----
 python -m pip install --upgrade pip
 
 REM ---- Install or upgrade required packages ----
-pip install --upgrade beautifulsoup4 selenium pyperclip requests
+pip install --upgrade beautifulsoup4 selenium pyperclip requests keyring
 
 REM ---- Start the main program ----
 start "" ".venv\Scripts\pythonw.exe" "%CD%\main.pyw"
 
 echo.
 echo Setup complete! The Password Manager should now be running.
-pause
