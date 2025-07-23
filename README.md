@@ -8,7 +8,7 @@
 </h1>
 
 <h3 align="">
-	Password Manager is a simple Python application that helps you store and manage your passwords. Alternatively, use the included 10 Minute Mail feature to prevent potential spam from reaching your own email addresses.
+	Password Manager is a simple Python application that helps you store and manage your passwords. Alternatively, use the included 10 minute email feature to prevent potential spam from reaching your own email addresses.
 </h3>
 
 <h1 align="">
