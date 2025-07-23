@@ -1,8 +1,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-/TODO
-/temp.py
+temp.py
+TODO
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
