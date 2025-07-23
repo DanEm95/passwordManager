@@ -1,9 +1,0 @@
-MyPass:
-[ ] Add function "def save_password()" stores the data doubled if you add the same credentials inside the keyring.
-[ ] Export as a JSON file is under Generate a 10 Minute Mail with MyMail.
-
-MyMail:
-[ ] Debug scraping the extend_button "Extend by 10 minutes" button with BeautifulSoup.
-[ ] Add "I would like to delete my current email address and get a new one" Button and add scraping for the new_temp_mail_button "New temp email" button with BeautifulSoup if needed.
-[ ] Add Language change for email_listbox under def fetch_emails(): items and email_content
-
