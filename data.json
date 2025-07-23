@@ -1,6 +1,5 @@
 {
     "https://google.com": {
-        "email": "yourEmail1@googlemail.com",
-        "_comment": "This is a test entry. No password will be stored in the Credential Manager for this email address."
+        "email": "yourEmail@googlemail.com"
     }
 }

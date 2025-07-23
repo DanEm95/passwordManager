@@ -8,7 +8,7 @@
 </h1>
 
 <h3 align="">
-	Password Manager is a simple Python application that helps you store and manage your passwords. Or use 10 Minute Mail to keep your personal email out of potential spam.
+	Password Manager is a simple Python application that helps you store and manage your passwords. Alternatively, use the included 10 Minute Mail feature to prevent potential spam from reaching your own email addresses.
 </h3>
 
 <h1 align="">
@@ -65,51 +65,53 @@ To run the Password Manager you will need to have Python installed on your syste
    ```bash
 	 pip install beautifulsoup4, selenium, pyperclip, requests, keyring
 
-## MyPass Usage
+## How do I use MyPass?
 ```
 1. Fill in the fields:
  	- Website
  	- Email/Username
-	- Password: Click the "Generate Password" button to generate a strong password. The generated password will automatically be copied to your clipboard.
+	- Password: Click the "Generate password" button to generate a strong password. The generated password will automatically be copied to your clipboard.
 
 2. Click "Add" to store your details in the "data.json". (The password will be stored in the Windows Credential Manager. It will not be stored in the "data.json" file).
 
 3. You can now paste the password directly wherever you need it by pressing Ctrl+V. Alternatively, press Win+V to open/activate the clipboard.
 
-4. To retrieve a saved password, enter the website name and click on Search.
+4. To retrieve a saved password, click on "Search", select a website from the list and click on "Insert into entry and close listbox".
 
-5. To export all credentials, including passwords, to a JSON file, click "Export as a JSON file" (For example, you can then save the exported JSON file to a USB stick).
+5. To delete a saved password, click on "Search", select a website from the list and click on "Delete from listbox".
+
+6. To export all credentials, including passwords, to a JSON file, click "Export as a JSON file" (For example, you can then save the exported JSON file to a USB stick).
 ```
 ### Note: Be very careful with the exported JSON file because it stores all your passwords in plain text that is neither encrypted nor hashed. For example, you might save the JSON file to a USB drive so that you can quickly access and copy your passwords. However, anyone who gains access to the USB drive or the file can easily read your passwords. Make sure to keep the file in a safe place and never share it with others.
 
-## MyMail usage
+## How do I use MyMail?
 ```
-1. In MyPass, click the gray "Generate a 10 MinuteMail with MyMail" button.
+1. In MyPass, click the gray "Generate a 10 minute email with MyMail" button.
 
-2. To generate a temporary email address for 10 minutes, click "Generate email". The email address will automatically be filled into the Email field and copied to your clipboard.
+2. To generate a temporary email address for 10 minutes, click "Generate email". The email address will automatically be filled into the "Email" field and copied to your clipboard.
 
-3. Email Viewer:
-	- Double-click an email in the Inbox list to view its contents.
+3. Double-click an email in the Inbox list to view its contents.
+
+4. To keep the same email for another 10 minutes, click the "I need 10 more minutes" button.
 ```
 ### Note: To return to MyPass, simply click on the logo
 
 ## Features
  - Generate strong, random passwords.
- - Store and retrieve passwords.
- - Automatically copies the generated passwords to the clipboard for quick access.
- - Manage temporary 10 minute emails for website signups to avoid using your personal email.
+ - Store, retrieve and delete passwords.
+ - Automatically copies the generated password and email to the clipboard for quick access.
+ - Manage temporary 10 minute emails for website signups to avoid using your personal emails.
 
-## Updated v1.1.6 changes
+## Updated v1.1.7 changes
+### Mymail
+- Added show/hide password button (🙈/🙉).
+- Added extend email time for 10 minutes button.
+- Improved chromedriver management for temporary email.
+- Email messages are now cached for quicker access.
+- Entry/Inbox/Listbox cleanup when email timer goes to 00:00.
+### MyPass
 - Passwords are now stored in the Credential Manager (keyring) rather than in "data.json". 
-
 - The "data.json" file is now only used to store website and email information.
-
-- "start.bat" has been removed.
-
-- Added "installationStart.bat" for automated setup and installation.
-
-- Added "startPasswordManager.vbs" for launching the Password Manager after installation.
-
 - Added an export feature that saves your full login details, including passwords, as a JSON file.
 
 ## Contribute
